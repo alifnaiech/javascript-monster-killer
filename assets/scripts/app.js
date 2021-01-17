@@ -12,9 +12,23 @@ const LOG_EVENT_PLAYER_HEAL = 'PLAYER_HEAL';
 const LOG_EVENT_GAME_OVER = 'GAME_OVER';
 
 const enteredValue = prompt('SET THE HEAL VALUE: ', 'Ex.100');
-let chosenMaxLife = parseInt(enteredValue);
-if (isNaN(chosenMaxLife) || chosenMaxLife <= 0) {
-  chosenMaxLife = 100; // set default value if condition not valid.
+
+function getMaxLifeValues() {
+  const parsedValue = parseInt(enteredValue);
+  if (isNaN(parsedValue) || parsedValue <= 0) {
+    throw { message: 'Invalid user input!' };
+  }
+  return parsedValue;
+}
+
+let chosenMaxLife;
+try {
+  chosenMaxLife = getMaxLifeValues();
+  console.log(chosenMaxLife);
+} catch (error) {
+  console.log(error);
+  chosenMaxLife = 100;
+  alert('You entered somthing wrong, default value of 100 was used');
 }
 
 let battleLog = [];

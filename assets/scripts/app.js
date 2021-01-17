@@ -18,6 +18,7 @@ if (isNaN(chosenMaxLife) || chosenMaxLife <= 0) {
 }
 
 let battleLog = [];
+let lastLogEntry = -1;
 let currentMonsterHealth = chosenMaxLife;
 let currentPlayerHealth = chosenMaxLife;
 let hadBonusLife = true;
@@ -198,14 +199,23 @@ function healPlayerHandler() {
 }
 
 function printLogHandler() {
-  // for (let i = 0; i < battleLog.length; i++) {
-  //   console.log(battleLog[i]);
-  // }
-
-  for (const log of battleLog) {
-    console.log(log);
+  for (let i = 0; i < 3; i++) {
+    console.log('----------');
   }
-  // console.log(battleLog);
+
+  let i = 0;
+  for (const log of battleLog) {
+    if ((!lastLogEntry && lastLogEntry !== 0) || lastLogEntry < i) {
+      console.log(!lastLogEntry);
+      console.log(`#${i}`);
+      for (const key in log) {
+        console.log(`${key} ==> ${log[key]}`);
+      }
+      lastLogEntry = i;
+      break;
+    }
+    i++;
+  }
 }
 
 attackBtn.addEventListener('click', attackHandler);
